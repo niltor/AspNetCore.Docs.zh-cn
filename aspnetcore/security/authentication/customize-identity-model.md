@@ -366,8 +366,8 @@ services.AddDefaultIdentity<ApplicationUser>()
 
 请按照下列步骤更改 PK 类型：
 
-1. 如果数据库已创建的 PK 更改之前，运行`Drop-Database`(PMC) 或`dotnet ef database drop`(.NET Core CLI) 将其删除。
-2. 在确认删除数据库，删除以进行初始迁移`Remove-Migration`(PMC) 或`dotnet ef migrations remove`(.NET Core CLI)。
+1. 如果在更改PK之前数据库已创建，运行`Drop-Database`(PMC) 或`dotnet ef database drop`(.NET Core CLI) 将其删除。
+2. 确认删除数据库后，删除已有的初始迁移内容`Remove-Migration`(PMC) 或`dotnet ef migrations remove`(.NET Core CLI)。
 3. 更新`ApplicationDbContext`类进行派生<xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext%603>。 指定的新类型`TKey`。 例如，若要使用`Guid`密钥类型：
 
     ```csharp
@@ -425,7 +425,7 @@ services.AddDefaultIdentity<ApplicationUser>()
 
     ::: moniker-end
 
-4. 如果自定义`ApplicationUser`正在使用类中，更新要继承的类`IdentityUser`。 例如：
+4. 如果正在使用自定义`ApplicationUser`，更新要继承的类`IdentityUser`。 例如：
 
     ::: moniker range="<= aspnetcore-1.1"
 
@@ -493,7 +493,7 @@ services.AddDefaultIdentity<ApplicationUser>()
 
     ::: moniker-end
 
-5. 如果自定义`ApplicationRole`正在使用类中，更新要继承的类`IdentityRole<TKey>`。 例如：
+5. 如果正在使用自定义`ApplicationRole`，更新要继承的类`IdentityRole<TKey>`。 例如：
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Data/ApplicationRole.cs?name=snippet_ApplicationRole&highlight=4)]
 
@@ -536,6 +536,7 @@ services.AddDefaultIdentity<ApplicationUser>()
     <xref:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores*>方法接受`TKey`，该值指示主键的数据类型的类型。
 
     ::: moniker-end
+6.   在 ASP.NET Core 2.1 或更高版本，如果使用工具将标识基架添加到项目中，你需要重新添加标识基架，并覆盖之前的模板内容。如果使用了自定义`ApplicationUser`，你还需要修改默认模板`_LoginPartial.cshtml`，将默认的`IdentityUser`替换成自定义类型。
 
 ### <a name="add-navigation-properties"></a>添加导航属性
 
